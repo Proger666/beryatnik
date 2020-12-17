@@ -1,0 +1,27 @@
+version: '2'
+services:
+
+  gateway:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $GW_SERVICE_PASSWORD
+    image: localhost:2375/gateway
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 5432:5432
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+  db:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $GW_SERVICE_PASSWORD
+    image: localhost:2375/db
+    restart: always
+    ports:
+      - 4000:4000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
